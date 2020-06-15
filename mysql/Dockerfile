@@ -6,6 +6,6 @@ ENV MYSQL_ROOT_PASSWORD root
 
 EXPOSE 3306
 
-cd /var/lib/jenkins/workspace/php-app-pipeline
+WORKDIR /var/lib/jenkins/workspace/php-app-pipeline
 
 
