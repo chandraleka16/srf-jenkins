@@ -8,7 +8,6 @@ def gitRepoName = "https://github.com/chandraleka16/srf-jenkins.git"
 
 properties([pipelineTriggers([githubPush()])])
 
-
 pipeline {
     agent {
         node {
