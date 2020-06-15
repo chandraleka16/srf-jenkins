@@ -50,9 +50,11 @@ pipeline {
                         sh "docker tag ${apacheLocalImage} ${dockerPublisherName}/${dockerRepoName}:${apacheLocalImage}V.${BUILD_NUMBER}"
                         sh "docker tag ${mysqlLocalImage} ${dockerPublisherName}/${dockerRepoName}:${mysqlLocalImage}V.${BUILD_NUMBER}"
                         
-                        sh "docker login"
+                        withCredentials([usernamePassword( credentialsId: 'docker-login', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+                        // def registry_url = "https://hub.docker.com/"
+                        sh "docker login -u $USER -p $PASSWORD"
                         sh "docker push ${dockerPublisherName}/${dockerRepoName}"
-
+                        }
                         sh "docker-compose up -d"
                     } 
                 }
