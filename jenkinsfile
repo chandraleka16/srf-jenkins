@@ -32,11 +32,11 @@ pipeline {
             steps {
                 script {
                     if (branch == 'origin' || branch == 'master' || branch == 'develop'){
-                        sh "sudo docker rmi ${apacheLocalImage} || true"
-                        sh "sudo docker build -t ${apacheLocalImage} apache/"
+                        sh "docker rmi ${apacheLocalImage} || true"
+                        sh "docker build -t ${apacheLocalImage} apache/"
 
-                        sh "sudo docker rmi ${mysqlLocalImage} || true"
-                        sh "sudo docker build -t ${mysqlLocalImage} mysql/"
+                        sh "docker rmi ${mysqlLocalImage} || true"
+                        sh "docker build -t ${mysqlLocalImage} mysql/"
                         
                     }
                 }
@@ -47,11 +47,11 @@ pipeline {
             steps {
                 script {
                     if (branch == 'master' || branch == 'develop'){
-                        sh "sudo docker tag ${apacheLocalImage} ${dockerPublisherName}/${dockerRepoName}"
-                        sh "sudo docker tag ${mysqlLocalImage} ${dockerPublisherName}/${dockerRepoName}"
-                        sh "sudo docker push ${dockerPublisherName}/${dockerRepoName}"
+                        sh "docker tag ${apacheLocalImage} ${dockerPublisherName}/${dockerRepoName}"
+                        sh "docker tag ${mysqlLocalImage} ${dockerPublisherName}/${dockerRepoName}"
+                        sh "docker push ${dockerPublisherName}/${dockerRepoName}"
 
-                        sh "sudo docker-compose up -d"
+                        sh "docker-compose up -d"
                     } 
                 }
             }
