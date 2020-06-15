@@ -37,7 +37,7 @@ pipeline {
 
                         sh "docker rmi ${mysqlLocalImage} || true"
                         sh "docker build -t ${mysqlLocalImage} mysql/"
-                        
+                        sh "docker-compose up -d"
                     }
                 }
             }
@@ -55,7 +55,7 @@ pipeline {
                         sh "docker login -u $USER -p $PASSWORD"
                         sh "docker push ${dockerPublisherName}/${dockerRepoName}"
                         }
-                        sh "docker-compose up -d"
+                        
                     } 
                 }
             }
