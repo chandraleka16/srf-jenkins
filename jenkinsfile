@@ -20,6 +20,11 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: "**", url: "${gitRepoName}"
+
+                script {
+                    branch = "${GIT_BRANCH}".split('/')[0]
+                }
+                echo "CHECK OUT BRANCH:${branch}"
             }
         }
 
