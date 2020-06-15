@@ -1,0 +1,31 @@
+version: '3.3'
+services:
+        apache:
+                build: ./apache
+                container_name: apache-con
+                ports: 
+                        - 83:80
+                volumes:
+                        - ./apache:/var/www/html
+                depends_on:
+                        - mysql
+        mysql:
+                build: ./mysql
+                container_name: mysql-con
+                volumes:
+                        - ./mysql:/docker-entrypont-initdb.d
+                environment: 
+                        MYSQL_DATABASE: lamp_task
+                        MYSQL_USERNAME: root
+                        MYSQL_PASSWORD: root
+                        MYSQL_ROOT_PASSWORD: root
+
+secrets:
+        mysql_username:
+                external: true
+        mysql_password:
+                external: true
+        root_password:
+                external: true
+
+
