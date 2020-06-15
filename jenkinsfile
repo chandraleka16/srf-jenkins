@@ -3,7 +3,6 @@ def dockerRepoName = "php-app"
 def apacheLocalImage = "apache2-image"
 def mysqlLocalImage = "mysql-image"
 
-
 def gitRepoName = "https://github.com/chandraleka16/srf-jenkins.git"
 
 
