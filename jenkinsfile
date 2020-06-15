@@ -4,7 +4,7 @@ def apacheLocalImage = "apache2-image"
 def mysqlLocalImage = "mysql-image"
 
 // Git Variables
-def gitRepoName = "https://github.com/chandraleka16/angular_app.git"
+def gitRepoName = "https://github.com/chandraleka16/srf-jenkins.git"
 
 // Triggers
 properties([pipelineTriggers([githubPush()])])
