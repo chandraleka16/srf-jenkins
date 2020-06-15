@@ -49,6 +49,7 @@ pipeline {
                     if (branch == 'origin' || branch == 'master' || branch == 'develop'){
                         sh "docker tag ${apacheLocalImage} ${dockerPublisherName}/${dockerRepoName}:${apacheLocalImage}V.${BUILD_NUMBER}"
                         sh "docker tag ${mysqlLocalImage} ${dockerPublisherName}/${dockerRepoName}:${mysqlLocalImage}V.${BUILD_NUMBER}"
+                        
                         sh "docker push ${dockerPublisherName}/${dockerRepoName}"
 
                         sh "docker-compose up -d"
