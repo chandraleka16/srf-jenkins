@@ -1,0 +1,59 @@
+def dockerPublisherName = "chandraleka1403"
+
+def apacheLocalImage = "apache2-image"
+def mysqlLocalImage = "mysql-image"
+
+// Git Variables
+def gitRepoName = "https://github.com/chandraleka16/angular_app.git"
+
+// Triggers
+properties([pipelineTriggers([githubPush()])])
+
+// Pipeline script
+pipeline {
+    // Agents
+    agent {
+        // Nodes to run the job on
+        node {
+            label 'slave2'
+        }
+    }
+
+    // Stages In the pipeline
+    stages {
+        // Checkout from the Source Control
+        stage('Checkout') {
+            steps {
+                git branch: "**", url: "${gitRepoName}"
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    if (branch == 'master' || branch == 'develop'){
+                        sh "docker rmi ${apacheLocalImage} || true"
+                        sh "docker build -t ${apacheLocalImage} apache/"
+
+                        sh "docker rmi ${mysqlLocalImage} || true"
+                        sh "docker build -t ${mysqlLocalImage} mysql/"
+                        
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    if (branch == 'master' || branch == 'develop'){
+                        sh "docker tag ${apacheLocalImage} ${dockerPublisherName}/${dockerRepoName}"
+                        sh "docker tag ${mysqlLocalImage} ${dockerPublisherName}/${dockerRepoName}"
+                        sh "docker push ${dockerPublisherName}/${dockerRepoName}"
+
+                        sh docker-compose up -d"
+                    } 
+                }
+            }
+        }
+}
