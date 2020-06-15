@@ -1,5 +1,5 @@
 def dockerPublisherName = "chandraleka1403"
-
+def dockerRepoName = "php-app"
 def apacheLocalImage = "apache2-image"
 def mysqlLocalImage = "mysql-image"
 
