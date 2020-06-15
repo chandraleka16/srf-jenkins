@@ -11,17 +11,14 @@ properties([pipelineTriggers([githubPush()])])
 
 
 pipeline {
-    // Agents
     agent {
-        // Nodes to run the job on
         node {
             label 'slave2'
         }
     }
 
-    // Stages In the pipeline
     stages {
-        // Checkout from the Source Control
+
         stage('Checkout') {
             steps {
                 git branch: "**", url: "${gitRepoName}"
